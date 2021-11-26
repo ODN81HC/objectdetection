@@ -1,0 +1,1 @@
+Put a video that you want to do the smart assist here.
