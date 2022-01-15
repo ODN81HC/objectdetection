@@ -65,7 +65,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', default=None, help='Specify the output path if you want to save the stream video')
     parser.add_argument('-m', '--module', default=default_active_module, help='SmartAssist module to use when processing \
                                                                                 video. Available modules: dummy_AI, yoloOD')
-    parser.add_argument('--classes', default='person', help='[Only work if -m yoloOD] Store class names here')
+    parser.add_argument('--classes', default=None, help='[Only work if -m yoloOD] Store class names here')
     parser.add_argument('--isTiny', help='[Only work if -m yoloOD] yolov3 or yolov3-tiny', action='store_true')
     parser.add_argument('--safetyAssist', help='[Only work if -m yoloOD] Turn on Safety Assist \
                                                 to get the object movement status', action='store_true')
@@ -77,7 +77,10 @@ if __name__ == '__main__':
     active_module = args.module
     isSafetyTurnedOn = args.safetyAssist
     isTiny = args.isTiny
-    labels = [i.strip().lower() for i in args.classes.split(',')]
+    if args.classes == None:
+        labels = []
+    else:
+        labels = [i.strip().lower() for i in args.classes.split(',')]
     
     # app.run(host='0.0.0.0', debug=True)
     # app.run(host='127.0.0.1', port=5010, debug=True)
