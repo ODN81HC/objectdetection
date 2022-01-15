@@ -29,7 +29,9 @@ class SmartAssistModule(BaseModule):
         with open("./yolo-coco/coco.names", "r") as f:
             self.classes = [line.strip() for line in f.readlines()]
             layer_names = self.net.getLayerNames()
-        self.output_layers = [layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
+        if not self.labels:
+            self.labels = self.classes
+        self.output_layers = [layer_names[i - 1] for i in self.net.getUnconnectedOutLayers()]
         self.colors = np.random.uniform(0, 255, size=(len(self.classes), 3))
         self.confidence_threshold = 0.5
         # Init a modules for this
